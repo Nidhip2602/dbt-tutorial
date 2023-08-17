@@ -2,20 +2,58 @@
 version: 2
 
 models:
-  - name: my_first_dbt_model
-    description: "A starter dbt model"
+  - name: customers_model
+    description: "starter dbt model"
     columns:
-      - name: id
+      - name: customer_id
         description: "The primary key for this table"
         tests:
           - unique
           - not_null
+      
 
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
+  - name: orders_model 
+    description: "starter dbt model"
     columns:
-      - name: id
+      - name: order_id
         description: "The primary key for this table"
         tests:
           - unique
-          - not_null
+          - not_null 
+
+      - name: product 
+        tests:
+          - accepted_values:
+              values: ['Bat', 'Ball', 'Book', 'Bulb']
+
+      - name: customer_id
+        tests: 
+          - relationships: 
+              to: ref('customers_model')
+              field: customer_id
+
+
+  - name: payments_model
+    description: "starter dbt model"
+    columns:
+      - name: payment_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null  
+
+
+  - name: ref_model
+    description: "starter dbt model"
+    columns:
+      - name: customer_id
+        description: "The primary key for this table"
+        tests:
+          - unique:
+             severity: error 
+             error_if: ">1" 
+             warn_if: "<1"
+          - not_null 
+              
+
+  

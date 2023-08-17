@@ -1,0 +1,11 @@
+
+
+sources:
+  - name: public
+    database: DBT_TRIAL
+    schema: PUBLIC
+    tables:
+      - name: dbt_payments
+      - name: dbt_orders
+      - name: dbt customers
+        
